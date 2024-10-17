@@ -1,4 +1,6 @@
-﻿namespace StreetReporterAPI.Domain.Entities.Users
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace StreetReporterAPI.Domain.Entities.Users
 {
     public class User
     {
