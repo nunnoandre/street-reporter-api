@@ -4,7 +4,7 @@ namespace StreetReporterAPI.Domain.Entities.Reports
 {
     public class ReportStatus
     {
-        public required ReportStatusEnum Id { get; set; }
+        public required uint Id { get; set; }
         public required string Name { get; set; }
     }
 

@@ -6,9 +6,7 @@ namespace StreetReporterAPI.Domain.Entities.Organizations
     public class PublicOrganization
     {
         public required uint Id {  get; set; }
-        public required string Name { get; set; }
-
-        [ForeignKey(nameof(PublicOrganizationType))]
-        public required PublicOrganizationTypeEnum TypeId { get; set; }
+        public required uint? PublicOrganizationTypeId { get; set; }
+        public virtual PublicOrganizationType? Type { get; set; }
     }
 }

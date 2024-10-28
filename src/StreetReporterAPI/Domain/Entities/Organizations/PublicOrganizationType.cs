@@ -2,7 +2,7 @@
 {
     public class PublicOrganizationType
     {
-        public required PublicOrganizationTypeEnum Id { get; set; }
+        public required uint Id { get; set; }
         public required string Name { get; set; }
     }
 

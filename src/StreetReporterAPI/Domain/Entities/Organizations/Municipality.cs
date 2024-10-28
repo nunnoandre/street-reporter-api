@@ -3,5 +3,6 @@
     public class Municipality
     {
         public required uint Id { get; set; }
+        public required string Name { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using StreetReporterAPI.Domain.Entities.Incidents;
+using StreetReporterAPI.Domain.Entities.Organizations;
 using StreetReporterAPI.Domain.Entities.Users;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,23 +9,19 @@ namespace StreetReporterAPI.Domain.Entities.Reports
     {
         public required uint Id { get; set; }
         public required string Description { get; set; }
-
-        [ForeignKey(nameof(User))]
-        public required uint ReporterId { get; set; }
+        public required User? Reporter { get; set; }
         public required DateTime CreationDate { get; set; } = DateTime.Now;
         public required string Coordinates { get; set; }
-
-        [ForeignKey(nameof(IncidentCategory))]
-        public required IncidentCategoryEnum CategoryId { get; set; } = IncidentCategoryEnum.None;
-        public required uint ResponsibleEntityId { get; set; }
-
-        [ForeignKey(nameof(ReportStatus))]
-        public required ReportStatusEnum StatusId { get; set; } = ReportStatusEnum.Opened;
+        public required uint IncidentCategoryId { get; set; }
+        public virtual IncidentCategory? Category { get; set; }
+        public required uint ResponsibleOrganizationId { get; set; }
+        public virtual PublicOrganization? ResponsibleOrganization { get; set; }
+        public required uint ReportStatusId { get; set; } = (uint)ReportStatusEnum.Opened + 1;
+        public virtual ReportStatus? Status { get; set; } 
         public required bool IsAnonymous { get; set; } = false;
         public required bool HasImages { get; set; } = false;
-        public DateTime ConclusionDate { get; set; }
-
-        [ForeignKey(nameof(Incident))]
-        public uint IncidentId { get; set; }
+        public DateTime? ConclusionDate { get; set; }
+        public uint? IncidentId { get; set; }
+        public virtual Incident? Incident { get; set; }
     }
 }

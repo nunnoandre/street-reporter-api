@@ -2,8 +2,8 @@
 {
     public class IncidentCategory
     {
-        public IncidentCategoryEnum Id { get; set; }
-        public string Name { get; set; }
+        public required uint Id { get; set; }
+        public required string Name { get; set; }
     }
 
     public enum IncidentCategoryEnum

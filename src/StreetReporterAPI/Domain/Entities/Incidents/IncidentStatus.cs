@@ -2,7 +2,7 @@
 {
     public class IncidentStatus
     {
-        public required IncidentStatusEnum Id { get; set; }
+        public required uint Id { get; set; }
         public required string Name { get; set; }
     }
 
@@ -12,6 +12,8 @@
         InProgress = 1,
         Done = 2,
         Aborted = 3,
-        Archived = 4
+        Archived = 4,
+        Affected = 5,
+        NotAffected = 6
     }
 }
