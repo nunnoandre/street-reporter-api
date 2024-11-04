@@ -2,13 +2,13 @@
 {
     public class PublicOrganizationType
     {
-        public required uint Id { get; set; }
+        public required PublicOrganizationTypeEnum Id { get; set; }
         public required string Name { get; set; }
     }
 
     public enum PublicOrganizationTypeEnum
     {
-        Municipality = 0,
-        Parish = 1
+        Municipality = 1,
+        Parish = 2
     }
 }

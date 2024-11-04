@@ -17,8 +17,7 @@ namespace StreetReporterAPI.Migrations
                 name: "IncidentCategories",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -30,8 +29,7 @@ namespace StreetReporterAPI.Migrations
                 name: "IncidentStatuses",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -56,8 +54,7 @@ namespace StreetReporterAPI.Migrations
                 name: "PublicOrganizationTypes",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -66,24 +63,22 @@ namespace StreetReporterAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReportsStatuses",
+                name: "ReportStatuses",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportsStatuses", x => x.Id);
+                    table.PrimaryKey("PK_ReportStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserRole",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -116,7 +111,7 @@ namespace StreetReporterAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PublicOrganizationTypeId = table.Column<long>(type: "bigint", nullable: true)
+                    PublicOrganizationTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,26 +124,6 @@ namespace StreetReporterAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NIF = table.Column<long>(type: "bigint", nullable: false),
-                    UserRoleId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.UniqueConstraint("AK_Users_NIF", x => x.NIF);
-                    table.ForeignKey(
-                        name: "FK_Users_UserRole_UserRoleId",
-                        column: x => x.UserRoleId,
-                        principalTable: "UserRole",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Incidents",
                 columns: table => new
                 {
@@ -157,9 +132,9 @@ namespace StreetReporterAPI.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Coordinates = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IncidentCategoryId = table.Column<long>(type: "bigint", nullable: true),
+                    IncidentCategoryId = table.Column<int>(type: "int", nullable: true),
                     ResponsibleOrganizationId = table.Column<long>(type: "bigint", nullable: true),
-                    IncidentStatusId = table.Column<long>(type: "bigint", nullable: true),
+                    IncidentStatusId = table.Column<int>(type: "int", nullable: true),
                     ConclusionDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -183,7 +158,30 @@ namespace StreetReporterAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IncidentsMessages",
+                name: "Users",
+                columns: table => new
+                {
+                    NIF = table.Column<long>(type: "bigint", nullable: false),
+                    UserRoleId = table.Column<int>(type: "int", nullable: true),
+                    PublicOrganizationId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.NIF);
+                    table.ForeignKey(
+                        name: "FK_Users_PublicOrganizations_PublicOrganizationId",
+                        column: x => x.PublicOrganizationId,
+                        principalTable: "PublicOrganizations",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Users_UserRole_UserRoleId",
+                        column: x => x.UserRoleId,
+                        principalTable: "UserRole",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IncidentMessages",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -196,18 +194,18 @@ namespace StreetReporterAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IncidentsMessages", x => x.Id);
+                    table.PrimaryKey("PK_IncidentMessages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IncidentsMessages_Incidents_IncidentId",
+                        name: "FK_IncidentMessages_Incidents_IncidentId",
                         column: x => x.IncidentId,
                         principalTable: "Incidents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_IncidentsMessages_Users_UserId",
+                        name: "FK_IncidentMessages_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "NIF");
                 });
 
             migrationBuilder.CreateTable(
@@ -217,12 +215,12 @@ namespace StreetReporterAPI.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReporterId = table.Column<long>(type: "bigint", nullable: true),
+                    ReporterNIF = table.Column<long>(type: "bigint", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Coordinates = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IncidentCategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    IncidentCategoryId = table.Column<int>(type: "int", nullable: false),
                     ResponsibleOrganizationId = table.Column<long>(type: "bigint", nullable: false),
-                    ReportStatusId = table.Column<long>(type: "bigint", nullable: false),
+                    ReportStatusId = table.Column<int>(type: "int", nullable: false),
                     IsAnonymous = table.Column<bool>(type: "bit", nullable: false),
                     HasImages = table.Column<bool>(type: "bit", nullable: false),
                     ConclusionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -249,16 +247,16 @@ namespace StreetReporterAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reports_ReportsStatuses_ReportStatusId",
+                        name: "FK_Reports_ReportStatuses_ReportStatusId",
                         column: x => x.ReportStatusId,
-                        principalTable: "ReportsStatuses",
+                        principalTable: "ReportStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reports_Users_ReporterId",
-                        column: x => x.ReporterId,
+                        name: "FK_Reports_Users_ReporterNIF",
+                        column: x => x.ReporterNIF,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "NIF");
                 });
 
             migrationBuilder.InsertData(
@@ -266,12 +264,13 @@ namespace StreetReporterAPI.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "None" },
-                    { 2L, "Road" },
-                    { 3L, "SideWalk" },
-                    { 4L, "Square" },
-                    { 5L, "PlayGround" },
-                    { 6L, "Garden" }
+                    { 1, "Uncategorized" },
+                    { 2, "Road" },
+                    { 3, "SideWalk" },
+                    { 4, "Square" },
+                    { 5, "PlayGround" },
+                    { 6, "Garden" },
+                    { 7, "Other" }
                 });
 
             migrationBuilder.InsertData(
@@ -279,13 +278,13 @@ namespace StreetReporterAPI.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Aknowledged" },
-                    { 2L, "InProgress" },
-                    { 3L, "Done" },
-                    { 4L, "Aborted" },
-                    { 5L, "Archived" },
-                    { 6L, "Affected" },
-                    { 7L, "NotAffected" }
+                    { 1, "Aknowledged" },
+                    { 2, "InProgress" },
+                    { 3, "Done" },
+                    { 4, "Aborted" },
+                    { 5, "Archived" },
+                    { 6, "Affected" },
+                    { 7, "NotAffected" }
                 });
 
             migrationBuilder.InsertData(
@@ -293,22 +292,22 @@ namespace StreetReporterAPI.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Municipality" },
-                    { 2L, "Parish" }
+                    { 1, "Municipality" },
+                    { 2, "Parish" }
                 });
 
             migrationBuilder.InsertData(
-                table: "ReportsStatuses",
+                table: "ReportStatuses",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Opened" },
-                    { 2L, "Taken" },
-                    { 3L, "Refused" },
-                    { 4L, "InProgress" },
-                    { 5L, "Done" },
-                    { 6L, "Canceled" },
-                    { 7L, "Archived" }
+                    { 1, "Opened" },
+                    { 2, "Taken" },
+                    { 3, "Refused" },
+                    { 4, "InProgress" },
+                    { 5, "Done" },
+                    { 6, "Canceled" },
+                    { 7, "Archived" }
                 });
 
             migrationBuilder.InsertData(
@@ -316,10 +315,20 @@ namespace StreetReporterAPI.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Reporter" },
-                    { 2L, "Manager" },
-                    { 3L, "Admin" }
+                    { 1, "Reporter" },
+                    { 2, "Manager" },
+                    { 3, "Admin" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentMessages_IncidentId",
+                table: "IncidentMessages",
+                column: "IncidentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentMessages_UserId",
+                table: "IncidentMessages",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Incidents_IncidentCategoryId",
@@ -335,16 +344,6 @@ namespace StreetReporterAPI.Migrations
                 name: "IX_Incidents_ResponsibleOrganizationId",
                 table: "Incidents",
                 column: "ResponsibleOrganizationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IncidentsMessages_IncidentId",
-                table: "IncidentsMessages",
-                column: "IncidentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IncidentsMessages_UserId",
-                table: "IncidentsMessages",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Parishes_MunicipalityId",
@@ -367,9 +366,9 @@ namespace StreetReporterAPI.Migrations
                 column: "IncidentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reports_ReporterId",
+                name: "IX_Reports_ReporterNIF",
                 table: "Reports",
-                column: "ReporterId");
+                column: "ReporterNIF");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reports_ReportStatusId",
@@ -382,6 +381,11 @@ namespace StreetReporterAPI.Migrations
                 column: "ResponsibleOrganizationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_PublicOrganizationId",
+                table: "Users",
+                column: "PublicOrganizationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_UserRoleId",
                 table: "Users",
                 column: "UserRoleId");
@@ -391,7 +395,7 @@ namespace StreetReporterAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IncidentsMessages");
+                name: "IncidentMessages");
 
             migrationBuilder.DropTable(
                 name: "Parishes");
@@ -406,7 +410,7 @@ namespace StreetReporterAPI.Migrations
                 name: "Incidents");
 
             migrationBuilder.DropTable(
-                name: "ReportsStatuses");
+                name: "ReportStatuses");
 
             migrationBuilder.DropTable(
                 name: "Users");

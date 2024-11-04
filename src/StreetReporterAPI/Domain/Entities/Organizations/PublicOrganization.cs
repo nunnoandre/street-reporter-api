@@ -5,8 +5,9 @@ namespace StreetReporterAPI.Domain.Entities.Organizations
 {
     public class PublicOrganization
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public required uint Id {  get; set; }
-        public required uint? PublicOrganizationTypeId { get; set; }
+        public required PublicOrganizationTypeEnum? PublicOrganizationTypeId { get; set; }
         public virtual PublicOrganizationType? Type { get; set; }
     }
 }

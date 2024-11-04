@@ -4,18 +4,18 @@ namespace StreetReporterAPI.Domain.Entities.Reports
 {
     public class ReportStatus
     {
-        public required uint Id { get; set; }
+        public required ReportStatusEnum Id { get; set; }
         public required string Name { get; set; }
     }
 
     public enum ReportStatusEnum
     {
-        Opened = 0,
-        Taken = 1,
-        Refused = 2,
-        InProgress = 3,
-        Done = 4,
-        Canceled = 5,
-        Archived = 6
+        Opened = 1,
+        Taken = 2,
+        Refused = 3,
+        InProgress = 4,
+        Done = 5,
+        Canceled = 6,
+        Archived = 7
     }
 }

@@ -15,12 +15,12 @@ namespace StreetReporterAPI.Infrastructure.Data
 
         //reports
         public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<ReportStatus> ReportsStatuses { get; set; }
+        public virtual DbSet<ReportStatus> ReportStatuses { get; set; }
 
         //incidents
         public virtual DbSet<Incident> Incidents { get; set; }
         public virtual DbSet<IncidentCategory> IncidentCategories { get; set; }
-        public virtual DbSet<IncidentMessage> IncidentsMessages { get; set; }
+        public virtual DbSet<IncidentMessage> IncidentMessages { get; set; }
         public virtual DbSet<IncidentStatus> IncidentStatuses { get; set; }
 
         //users
@@ -39,27 +39,27 @@ namespace StreetReporterAPI.Infrastructure.Data
             //populating enum entities
             foreach (var e in Enum.GetValues(typeof(IncidentCategoryEnum)).Cast<IncidentCategoryEnum>())
             {
-                builder.Entity<IncidentCategory>().HasData(new IncidentCategory { Id = (uint)e+1, Name = e.ToString() });
+                builder.Entity<IncidentCategory>().HasData(new IncidentCategory { Id = e, Name = e.ToString() });
             }
 
             foreach (var e in Enum.GetValues(typeof(IncidentStatusEnum)).Cast<IncidentStatusEnum>())
             {
-                builder.Entity<IncidentStatus>().HasData(new IncidentStatus { Id = (uint)e + 1, Name = e.ToString() });
+                builder.Entity<IncidentStatus>().HasData(new IncidentStatus { Id = e, Name = e.ToString() });
             }
 
             foreach (var e in Enum.GetValues(typeof(PublicOrganizationTypeEnum)).Cast<PublicOrganizationTypeEnum>())
             {
-                builder.Entity<PublicOrganizationType>().HasData(new PublicOrganizationType { Id = (uint)e + 1, Name = e.ToString() });
+                builder.Entity<PublicOrganizationType>().HasData(new PublicOrganizationType { Id = e, Name = e.ToString() });
             }
 
             foreach (var e in Enum.GetValues(typeof(ReportStatusEnum)).Cast<ReportStatusEnum>())
             {
-                builder.Entity<ReportStatus>().HasData(new ReportStatus { Id = (uint)e + 1, Name = e.ToString() });
+                builder.Entity<ReportStatus>().HasData(new ReportStatus { Id = e, Name = e.ToString() });
             }
 
             foreach (var e in Enum.GetValues(typeof(UserRoleEnum)).Cast<UserRoleEnum>())
             {
-                builder.Entity<UserRole>().HasData(new UserRole { Id = (uint)e + 1, Name = e.ToString() });
+                builder.Entity<UserRole>().HasData(new UserRole { Id = e, Name = e.ToString() });
             }
 
             //adding alternate key for user

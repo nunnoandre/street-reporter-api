@@ -44,11 +44,11 @@ namespace StreetReporterAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("IncidentCategoryId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("IncidentCategoryId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("IncidentStatusId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("IncidentStatusId")
+                        .HasColumnType("int");
 
                     b.Property<long?>("ResponsibleOrganizationId")
                         .HasColumnType("bigint");
@@ -66,11 +66,8 @@ namespace StreetReporterAPI.Migrations
 
             modelBuilder.Entity("StreetReporterAPI.Domain.Entities.Incidents.IncidentCategory", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -83,33 +80,38 @@ namespace StreetReporterAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
-                            Name = "None"
+                            Id = 1,
+                            Name = "Uncategorized"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Name = "Road"
                         },
                         new
                         {
-                            Id = 3L,
+                            Id = 3,
                             Name = "SideWalk"
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 4,
                             Name = "Square"
                         },
                         new
                         {
-                            Id = 5L,
+                            Id = 5,
                             Name = "PlayGround"
                         },
                         new
                         {
-                            Id = 6L,
+                            Id = 6,
                             Name = "Garden"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Other"
                         });
                 });
 
@@ -143,16 +145,13 @@ namespace StreetReporterAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IncidentsMessages");
+                    b.ToTable("IncidentMessages");
                 });
 
             modelBuilder.Entity("StreetReporterAPI.Domain.Entities.Incidents.IncidentStatus", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -165,37 +164,37 @@ namespace StreetReporterAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             Name = "Aknowledged"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Name = "InProgress"
                         },
                         new
                         {
-                            Id = 3L,
+                            Id = 3,
                             Name = "Done"
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 4,
                             Name = "Aborted"
                         },
                         new
                         {
-                            Id = 5L,
+                            Id = 5,
                             Name = "Archived"
                         },
                         new
                         {
-                            Id = 6L,
+                            Id = 6,
                             Name = "Affected"
                         },
                         new
                         {
-                            Id = 7L,
+                            Id = 7,
                             Name = "NotAffected"
                         });
                 });
@@ -247,8 +246,8 @@ namespace StreetReporterAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("PublicOrganizationTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("PublicOrganizationTypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -259,11 +258,8 @@ namespace StreetReporterAPI.Migrations
 
             modelBuilder.Entity("StreetReporterAPI.Domain.Entities.Organizations.PublicOrganizationType", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -276,12 +272,12 @@ namespace StreetReporterAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             Name = "Municipality"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Name = "Parish"
                         });
                 });
@@ -311,8 +307,8 @@ namespace StreetReporterAPI.Migrations
                     b.Property<bool>("HasImages")
                         .HasColumnType("bit");
 
-                    b.Property<long>("IncidentCategoryId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("IncidentCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<long?>("IncidentId")
                         .HasColumnType("bigint");
@@ -320,10 +316,10 @@ namespace StreetReporterAPI.Migrations
                     b.Property<bool>("IsAnonymous")
                         .HasColumnType("bit");
 
-                    b.Property<long>("ReportStatusId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ReportStatusId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("ReporterId")
+                    b.Property<long?>("ReporterNIF")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ResponsibleOrganizationId")
@@ -337,7 +333,7 @@ namespace StreetReporterAPI.Migrations
 
                     b.HasIndex("ReportStatusId");
 
-                    b.HasIndex("ReporterId");
+                    b.HasIndex("ReporterNIF");
 
                     b.HasIndex("ResponsibleOrganizationId");
 
@@ -346,11 +342,8 @@ namespace StreetReporterAPI.Migrations
 
             modelBuilder.Entity("StreetReporterAPI.Domain.Entities.Reports.ReportStatus", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -358,63 +351,60 @@ namespace StreetReporterAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ReportsStatuses");
+                    b.ToTable("ReportStatuses");
 
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             Name = "Opened"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Name = "Taken"
                         },
                         new
                         {
-                            Id = 3L,
+                            Id = 3,
                             Name = "Refused"
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 4,
                             Name = "InProgress"
                         },
                         new
                         {
-                            Id = 5L,
+                            Id = 5,
                             Name = "Done"
                         },
                         new
                         {
-                            Id = 6L,
+                            Id = 6,
                             Name = "Canceled"
                         },
                         new
                         {
-                            Id = 7L,
+                            Id = 7,
                             Name = "Archived"
                         });
                 });
 
             modelBuilder.Entity("StreetReporterAPI.Domain.Entities.Users.User", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<long>("NIF")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("UserRoleId")
+                    b.Property<long?>("PublicOrganizationId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("UserRoleId")
+                        .HasColumnType("int");
 
-                    b.HasAlternateKey("NIF");
+                    b.HasKey("NIF");
+
+                    b.HasIndex("PublicOrganizationId");
 
                     b.HasIndex("UserRoleId");
 
@@ -423,11 +413,8 @@ namespace StreetReporterAPI.Migrations
 
             modelBuilder.Entity("StreetReporterAPI.Domain.Entities.Users.UserRole", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -440,17 +427,17 @@ namespace StreetReporterAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             Name = "Reporter"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Name = "Manager"
                         },
                         new
                         {
-                            Id = 3L,
+                            Id = 3,
                             Name = "Admin"
                         });
                 });
@@ -531,7 +518,7 @@ namespace StreetReporterAPI.Migrations
 
                     b.HasOne("StreetReporterAPI.Domain.Entities.Users.User", "Reporter")
                         .WithMany()
-                        .HasForeignKey("ReporterId");
+                        .HasForeignKey("ReporterNIF");
 
                     b.HasOne("StreetReporterAPI.Domain.Entities.Organizations.PublicOrganization", "ResponsibleOrganization")
                         .WithMany()
@@ -552,9 +539,15 @@ namespace StreetReporterAPI.Migrations
 
             modelBuilder.Entity("StreetReporterAPI.Domain.Entities.Users.User", b =>
                 {
+                    b.HasOne("StreetReporterAPI.Domain.Entities.Organizations.PublicOrganization", "PublicOrganization")
+                        .WithMany()
+                        .HasForeignKey("PublicOrganizationId");
+
                     b.HasOne("StreetReporterAPI.Domain.Entities.Users.UserRole", "Role")
                         .WithMany()
                         .HasForeignKey("UserRoleId");
+
+                    b.Navigation("PublicOrganization");
 
                     b.Navigation("Role");
                 });

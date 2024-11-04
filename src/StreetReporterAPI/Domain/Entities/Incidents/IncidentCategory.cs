@@ -2,17 +2,18 @@
 {
     public class IncidentCategory
     {
-        public required uint Id { get; set; }
+        public required IncidentCategoryEnum Id { get; set; }
         public required string Name { get; set; }
     }
 
     public enum IncidentCategoryEnum
     {
-        None = 0,
-        Road = 1,
-        SideWalk = 2,
-        Square = 3,
-        PlayGround = 4,
-        Garden = 5
+        Uncategorized = 1,
+        Road = 2,
+        SideWalk = 3,
+        Square = 4,
+        PlayGround = 5,
+        Garden = 6,
+        Other = 7,
     }
 }

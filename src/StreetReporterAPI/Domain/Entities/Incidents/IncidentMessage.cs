@@ -5,6 +5,7 @@ namespace StreetReporterAPI.Domain.Entities.Incidents
 {
     public class IncidentMessage
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public required uint Id { get; set; }
         public required uint IncidentId { get; set; }
         public virtual Incident? Incident { get; set; }

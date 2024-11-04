@@ -7,16 +7,17 @@ namespace StreetReporterAPI.Domain.Entities.Reports
 {
     public class Report
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public required uint Id { get; set; }
         public required string Description { get; set; }
         public required User? Reporter { get; set; }
         public required DateTime CreationDate { get; set; } = DateTime.Now;
         public required string Coordinates { get; set; }
-        public required uint IncidentCategoryId { get; set; }
+        public required IncidentCategoryEnum IncidentCategoryId { get; set; } = IncidentCategoryEnum.Other;
         public virtual IncidentCategory? Category { get; set; }
         public required uint ResponsibleOrganizationId { get; set; }
         public virtual PublicOrganization? ResponsibleOrganization { get; set; }
-        public required uint ReportStatusId { get; set; } = (uint)ReportStatusEnum.Opened + 1;
+        public required ReportStatusEnum ReportStatusId { get; set; } = ReportStatusEnum.Opened;
         public virtual ReportStatus? Status { get; set; } 
         public required bool IsAnonymous { get; set; } = false;
         public required bool HasImages { get; set; } = false;

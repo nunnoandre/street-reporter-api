@@ -2,18 +2,18 @@
 {
     public class IncidentStatus
     {
-        public required uint Id { get; set; }
+        public required IncidentStatusEnum Id { get; set; }
         public required string Name { get; set; }
     }
 
     public enum IncidentStatusEnum
     {
-        Aknowledged = 0,
-        InProgress = 1,
-        Done = 2,
-        Aborted = 3,
-        Archived = 4,
-        Affected = 5,
-        NotAffected = 6
+        Aknowledged = 1,
+        InProgress = 2,
+        Done = 3,
+        Aborted = 4,
+        Archived = 5,
+        Affected = 6,
+        NotAffected = 7
     }
 }
