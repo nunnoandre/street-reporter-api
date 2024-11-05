@@ -10,7 +10,8 @@ namespace StreetReporterAPI.Domain.Entities.Reports
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public required uint Id { get; set; }
         public required string Description { get; set; }
-        public required User? Reporter { get; set; }
+        public required uint? UserId { get; set; }
+        public virtual User? User { get; set; }
         public required DateTime CreationDate { get; set; } = DateTime.Now;
         public required string Coordinates { get; set; }
         public required IncidentCategoryEnum IncidentCategoryId { get; set; } = IncidentCategoryEnum.Other;
