@@ -18,8 +18,11 @@ namespace StreetReporterAPI.Domain.Entities.Reports
         public virtual IncidentCategory? Category { get; set; }
         public required uint ResponsibleOrganizationId { get; set; }
         public virtual PublicOrganization? ResponsibleOrganization { get; set; }
-        public required ReportStatusEnum ReportStatusId { get; set; } = ReportStatusEnum.Opened;
-        public virtual ReportStatus? Status { get; set; } 
+        //public required ReportStatusEnum ReportStatusId { get; set; } = ReportStatusEnum.Opened;
+        //public virtual ReportStatus? Status { get; set; }
+        public required bool IsValidated { get; set; } = false;
+        public required bool IsRefected { get; set; } = false;
+        public required bool IsArchived { get; set; } = false;  
         public required bool IsAnonymous { get; set; } = false;
         public required bool HasImages { get; set; } = false;
         public DateTime? ConclusionDate { get; set; }

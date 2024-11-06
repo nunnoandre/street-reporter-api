@@ -18,4 +18,6 @@ namespace StreetReporterAPI.Domain.Entities.Reports
         Canceled = 6,
         Archived = 7
     }
+
+
 }

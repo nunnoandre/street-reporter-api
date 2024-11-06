@@ -18,7 +18,9 @@ namespace StreetReporterAPI.Domain.Entities.Incidents
         public virtual PublicOrganization? ResponsibleOrganization { get; set; }
         public required IncidentStatusEnum? IncidentStatusId { get; set; } 
         public virtual IncidentStatus? Status { get; set; }
+        public required bool IsArchived { get; set; } = false;
         public DateTime? ConclusionDate { get; set; }
+        public required uint ReportsCount { get; set; }
         public virtual List<IncidentMessage>? Messages { get; set; }
         public virtual List<Report>? Reports { get; set; }
     }
