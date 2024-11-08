@@ -1,5 +1,8 @@
 using StreetReporterAPI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using StreetReporterAPI.Application.Interfaces;
+using StreetReporterAPI.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,11 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+
+//adding IoD
+builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IIncidentService, IncidentService>();
 
 var app = builder.Build();
 

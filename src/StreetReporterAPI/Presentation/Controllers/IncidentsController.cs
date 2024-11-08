@@ -1,45 +1,28 @@
-﻿using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StreetReporterAPI.Application.DTO;
 using StreetReporterAPI.Application.Interfaces;
-using StreetReporterAPI.Domain.Entities.Reports;
 
-namespace StreetReporterAPI.Presentation.Controllers
+namespace StreetincidenterAPI.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReportsController : ControllerBase
+    public class IncidentsController : ControllerBase
     {
-        private readonly IReportService _service;
-        public ReportsController(IReportService service)
+        private readonly IIncidentService _service;
+        public IncidentsController(IIncidentService service)
         {
             _service = service;
         }
 
-        /// <summary>
-        /// Gets all reports for a given user id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet("/by-user/{id}")]
-        public async Task<ActionResult<ApiResponse<List<ReportResponse>>>> GetAllByUser(uint id)
-        {
-            var response = await _service.GetAllByUser(id);
-
-            if (response?.ResponseObject == null)
-                return NotFound(response?.ErrorMessage);
-
-            return Ok(response.ResponseObject);
-        }
 
         /// <summary>
-        /// Gets all reports for a given organization id
+        /// Gets all incidents for a given organization id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("/by-organization/{id}")]
-        public async Task<ActionResult<ApiResponse<List<ReportResponse>>>> GetAllByOrganization(uint id)
+        public async Task<ActionResult<ApiResponse<List<IncidentResponse>>>> GetAllByOrganization(uint id)
         {
             var response = await _service.GetAllByOrganization(id);
 
@@ -50,12 +33,12 @@ namespace StreetReporterAPI.Presentation.Controllers
         }
 
         /// <summary>
-        /// Gets all active reports for a given organization id 
+        /// Gets all active incidents for a given organization id 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("/by-organization/{id}/active")]
-        public async Task<ActionResult<ApiResponse<List<ReportResponse>>>> GetAllActiveByOrganization(uint id)
+        public async Task<ActionResult<ApiResponse<List<IncidentResponse>>>> GetAllActiveByOrganization(uint id)
         {
             var response = await _service.GetAllActiveByOrganization(id);
 
@@ -66,12 +49,12 @@ namespace StreetReporterAPI.Presentation.Controllers
         }
 
         /// <summary>
-        /// Get a report from its unique id
+        /// Get a incident from its unique id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApiResponse<ReportResponse>>> GetById(uint id)
+        public async Task<ActionResult<ApiResponse<IncidentResponse>>> GetById(uint id)
         {
             var response = await _service.GetById(id);
 
@@ -82,14 +65,14 @@ namespace StreetReporterAPI.Presentation.Controllers
         }
 
         /// <summary>
-        /// Add a report
+        /// Add a incident
         /// </summary>
-        /// <param name="report"></param>
+        /// <param name="incident"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> Add(ReportRequest report)
+        public async Task<ActionResult> Add(IncidentRequest incident)
         {
-            var response = await _service.AddReport(report);
+            var response = await _service.AddIncident(incident);
 
             if (response)
                 return Ok();
@@ -98,20 +81,19 @@ namespace StreetReporterAPI.Presentation.Controllers
         }
 
         /// <summary>
-        /// Delete a report from its unique id
+        /// Delete a incident from its unique id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
         public async Task<ActionResult> Delete(uint id)
         {
-            var response = await _service.DeleteReport(id);
+            var response = await _service.DeleteIncident(id);
 
             if (response)
                 return Ok();
 
             return BadRequest();
         }
-
     }
 }

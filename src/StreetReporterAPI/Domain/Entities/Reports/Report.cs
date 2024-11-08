@@ -8,11 +8,11 @@ namespace StreetReporterAPI.Domain.Entities.Reports
     public class Report
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required uint Id { get; set; }
+        public uint Id { get; set; }
         public required string Description { get; set; }
-        public required uint? UserId { get; set; }
+        public required uint UserId { get; set; }
         public virtual User? User { get; set; }
-        public required DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime CreationDate { get; set; } = DateTime.Now;
         public required string Coordinates { get; set; }
         public required IncidentCategoryEnum IncidentCategoryId { get; set; } = IncidentCategoryEnum.Other;
         public virtual IncidentCategory? Category { get; set; }
@@ -20,9 +20,9 @@ namespace StreetReporterAPI.Domain.Entities.Reports
         public virtual PublicOrganization? ResponsibleOrganization { get; set; }
         //public required ReportStatusEnum ReportStatusId { get; set; } = ReportStatusEnum.Opened;
         //public virtual ReportStatus? Status { get; set; }
-        public required bool IsValidated { get; set; } = false;
-        public required bool IsRefected { get; set; } = false;
-        public required bool IsArchived { get; set; } = false;  
+        public bool IsValidated { get; set; } = false;
+        public bool IsRejected { get; set; } = false;
+        public bool IsArchived { get; set; } = false;  
         public required bool IsAnonymous { get; set; } = false;
         public required bool HasImages { get; set; } = false;
         public DateTime? ConclusionDate { get; set; }

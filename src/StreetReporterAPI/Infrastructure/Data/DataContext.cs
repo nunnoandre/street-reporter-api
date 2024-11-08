@@ -63,7 +63,7 @@ namespace StreetReporterAPI.Infrastructure.Data
             }
 
             //adding alternate key for user
-            builder.Entity<User>().HasAlternateKey(u => u.NIF);
+            //builder.Entity<User>().HasAlternateKey(u => u.NIF);
         }
 
     }
