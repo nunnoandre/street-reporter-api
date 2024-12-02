@@ -11,7 +11,7 @@ namespace StreetReporterAPI.Application.DTO
         public string Coordinates { get; set; }
         public uint IncidentCategoryId { get; set; } 
         public uint ResponsibleOrganizationId { get; set; }
-        public  bool IsAnonymous { get; set; }
-        public  bool HasImages { get; set; }
+        public bool IsAnonymous { get; set; }
+        public bool HasImages { get; set; }
     }
 }

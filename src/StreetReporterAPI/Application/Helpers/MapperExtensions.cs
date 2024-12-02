@@ -1,6 +1,8 @@
 ﻿using StreetReporterAPI.Application.DTO;
 using StreetReporterAPI.Domain.Entities.Incidents;
+using StreetReporterAPI.Domain.Entities.Organizations;
 using StreetReporterAPI.Domain.Entities.Reports;
+using StreetReporterAPI.Domain.Entities.Users;
 
 namespace StreetReporterAPI.Application.Helpers
 {
@@ -68,6 +70,30 @@ namespace StreetReporterAPI.Application.Helpers
                 Coordinates = incidentRequest.Coordinates,
                 IncidentCategoryId = (IncidentCategoryEnum)incidentRequest.CategoryId,
                 ResponsibleOrganizationId = incidentRequest.ResponsibleOrganizationId,                
+            };
+        }
+
+        public static UserResponse ToResponseModel(this User user) 
+        {
+            return new UserResponse
+            {
+                NIF = user.NIF,
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role,
+                PublicOrganization = user.PublicOrganization
+            };
+        }
+
+        public static User ToUserModel(this UserRequest userRequest)
+        {
+            return new User
+            {
+                NIF = userRequest.NIF,
+                Name = userRequest.Name,
+                Email = userRequest.Email,
+                UserRoleId = (UserRoleEnum)userRequest.RoleId,
+                PublicOrganizationId = userRequest.PublicOrganizationId,
             };
         }
     }

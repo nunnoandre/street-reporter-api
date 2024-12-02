@@ -15,5 +15,10 @@ namespace StreetReporterAPI.Application.Constants
         public static string IncidentsNotFoundByUser = "There was no incidents found for that user";
         public static string IncidentsNotFoundByOrganization = "There was no incidents found for that organization";
         public static string ActiveIncidentsNotFoundByOrganization = "There was no active incidents found for that organization";
+
+        //users
+        public static string UserNotFoundById = "There was no user found with that id";
+        public static string UserNotFoundByEmail = "There was no user found with that email";
+
     }
 }

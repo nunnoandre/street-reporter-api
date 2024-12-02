@@ -9,6 +9,8 @@ namespace StreetReporterAPI.Domain.Entities.Users
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public required uint NIF { get; set; }
+        public required string Name { get; set; }
+        public string? Email { get; set; }
         public required UserRoleEnum? UserRoleId { get; set; } 
         public virtual UserRole? Role { get; set; }
         public uint? PublicOrganizationId { get; set; }
